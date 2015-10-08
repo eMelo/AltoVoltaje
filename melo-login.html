@@ -98,6 +98,9 @@
     Polymer({
       is: 'melo-login',
       behaviors:[Polymer.NeonAnimationRunnerBehavior],
+      listeners: {
+        'neon-animation-finish': '_onNeonAnimationFinish'
+      },
       properties:{
         animationConfig:{
           value:function(){
@@ -138,6 +141,7 @@
           }
         }
       },
+      count:[0],
       _onTap:function(){
         var dial= document.getElementById("dialog");
         this.playAnimation('entry');
@@ -148,10 +152,15 @@
       check:function(){
         if(document.getElementById("LogOrReg").selected==0){
           this.playAnimation('exitSectionOne');
-          document.getElementById("LogOrReg").selectNext();
+          count = 1;
         }  
+      },
+      _onNeonAnimationFinish:function(e){
+        if(count){
+          document.getElementById("LogOrReg").selectNext();
+          count = 0;
+        }
       }
-      
     })
   </script>
 </dom-module>
