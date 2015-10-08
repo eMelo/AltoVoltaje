@@ -4,16 +4,70 @@
 <link rel="import" href="bower_components\neon-animation\neon-animations.html">
 <link rel="import" href="bower_components\neon-animation\neon-animation-runner-behavior.html">
 
+<link rel="import" href="bower_components\paper-dialog\paper-dialog.html">
+<link rel="import" href="bower_components\paper-input\paper-input.html">
+<link rel="import" href="bower_components\paper-card\paper-card.html">
+<link rel="import" href="bower_components\paper-button\paper-button.html">
+
+<link rel="import" href="bower_components\iron-icon\iron-icon.html">
+<link rel="import" href="bower_components\iron-icons\iron-icons.html">
+<link rel="import" href="bower_components\iron-pages\iron-pages.html">
+
+
+<link rel="import" href="bower_components\gold-email-input\gold-email-input.html">
+<link rel="import" href="bower_components\gold-phone-input\gold-phone-input.html">
+
+<link rel="import" href="bower_components\neon-animation\neon-animated-pages.html">
+
+
 <dom-module id="melo-login">
   <style>
     :host{
-      background:inherit;
-      color: inherit;
+      display: block;
+    }
+    paper-card{
+      background: #DEDEDE;
+    }
+    .buttonLogin{
+      background:yellow;
     }
   </style>
   
-  <template>
-    <table>
+  <template> 
+    <paper-dialog id="dialog" style="border-radius:5px;">
+      <paper-card heading="Alto Voltaje" style="border-radius:5px;" elevation="0">
+        
+          <iron-pages id="LogOrReg" selected="0">
+          <!--Card Content-->
+          <section id=s"ectionOne">
+            <div class="card-content">
+              <paper-input always-float-label label="E-mail"></paper-input>
+              <paper-input always-float-label label="Password"></paper-input>
+            </div>
+            
+            <div class="card-actions">
+              <paper-button class="buttonLogin" raised><b>Login</b></paper-button>
+              <paper-button class="buttonLogin" on-tap="check">Register</paper-button>
+            </div>
+          </section>
+          
+          <section id="sectionTwo">
+            <div class="card-content">
+              <paper-input always-float-label label="Email"></paper-input>
+              <paper-input always-float-label label="Password"></paper-input>
+              <paper-input always-float-label label="Re-Password"></paper-input>
+              <paper-input always-float-label label="Phone"></paper-input>
+            </div>
+          </section>
+        </iron-pages>
+        
+        <!--Action Cancel, Login or Register-->
+        
+      </paper-card>
+    </paper-dialog>
+    
+    
+    <table on-tap="_onTap">
       <tr>
         <td><span style="color:#9E9E9E;"><b>Nombre</b></span></td>
         <td rowspan="2" style="padding: 5% 15% 5% 5%;"><span>Imagen</span></td>
@@ -22,6 +76,8 @@
         <td><span style="color:yellow;"><b>Mili-Amperes</b></span></td>
       </tr>
     </table>
+    
+   
   </template>
   
   <script>
@@ -32,38 +88,53 @@
         animationConfig:{
           value:function(){
             return{
-              'entry':{
-                name:'scale-up-animation',
-                node:this,
-                timing:{delay:1000, duration:1500}
-              },
+              'entry':[
+                {
+                  name:'melo-animation',
+                  node: this.$.dialog,
+                  timing:{delay:500, duration:1500}
+                },
+                {
+                  name:'fade-in-animation',
+                  node: this.$.dialog,
+                  timing:{duration:2000}
+                }
+                ],
               'exit':[
                 {
                   name:'fade-out-animation',
-                  node: this,
-                  timing: {delay:250, duration:250}
+                  node: this
                 },
                 {
                   name:'scale-down-animation',
-                  node: this,
-                  timing: {duration:500}
-                }
-              ]
+                  node: this
+                }],
+              'exitSectionOne':[
+                {
+                  name:'slide-left-animation',
+                  node: this.$.sectionOne
+                }]
             }
           }
         }
       },
-      listeners:{
-        'tap':'_onTap',
-        'neon-animation-finish':'_onAnimationFinish'
+      _onTap:function(){
+        var dial= document.getElementById("dialog");
+        this.playAnimation('entry');
+        document.getElementById("LogOrReg").select(0);
+       
+        dial.open();
       },
-      _onTap:function(e){
-        console.log("Tapping");
-        this.playAnimation('exit');
-      },
-       _onAnimationFinish:function(){
-        this.style.display = 'none';
+      
+      check:function(){
+        if(document.getElementById("LogOrReg").selected==0){
+          this.playAnimation('exitSectionOne');
+          document.getElementById("LogOrReg").selectNext();
+        }
+          
+          
       }
+      
     })
   </script>
 </dom-module>
