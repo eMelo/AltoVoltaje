@@ -23,51 +23,26 @@
 <dom-module id="melo-login">
   <style>
     :host{
-      display: block;
+      display: inline-block;
     }
-    paper-card{
-      background: #DEDEDE;
+    table.melologintable{
+      position: absolute;
+      right: 0px;
+      margin: auto 0 auto 0;
+      top: 5.5px;
     }
     .buttonLogin{
       background:yellow;
     }
+    .dialogmelologin{
+      margin:auto auto auto auto;
+      z-index: 12;
+      position: fixed;
+    }
   </style>
   
   <template> 
-    <paper-dialog id="dialog" style="border-radius:5px;">
-      <paper-card heading="Alto Voltaje" style="border-radius:5px;" elevation="0">
-        
-          <iron-pages id="LogOrReg" selected="0">
-          <!--Card Content-->
-          <section id=s"ectionOne">
-            <div class="card-content">
-              <paper-input always-float-label label="E-mail"></paper-input>
-              <paper-input always-float-label label="Password"></paper-input>
-            </div>
-            
-            <div class="card-actions">
-              <paper-button class="buttonLogin" raised><b>Login</b></paper-button>
-              <paper-button class="buttonLogin" on-tap="check">Register</paper-button>
-            </div>
-          </section>
-          
-          <section id="sectionTwo">
-            <div class="card-content">
-              <paper-input always-float-label label="Email"></paper-input>
-              <paper-input always-float-label label="Password"></paper-input>
-              <paper-input always-float-label label="Re-Password"></paper-input>
-              <paper-input always-float-label label="Phone"></paper-input>
-            </div>
-          </section>
-        </iron-pages>
-        
-        <!--Action Cancel, Login or Register-->
-        
-      </paper-card>
-    </paper-dialog>
-    
-    
-    <table on-tap="_onTap">
+    <table class="melologintable" on-tap="_onTap">
       <tr>
         <td><span style="color:#9E9E9E;"><b>Nombre</b></span></td>
         <td rowspan="2" style="padding: 5% 15% 5% 5%;"><span>Imagen</span></td>
@@ -76,6 +51,45 @@
         <td><span style="color:yellow;"><b>Mili-Amperes</b></span></td>
       </tr>
     </table>
+
+
+
+    <paper-dialog class="dialogmelologin" id="dialog" style="border-radius:5px;">
+      <iron-pages id="LogOrReg" selected="0">
+
+        <section id="sectionOne">
+          <paper-card heading="Alto Voltaje" style="border-radius:5px;" elevation="0">
+            <div class="card-content">
+              <paper-input always-float-label label="E-mail"></paper-input>
+              <paper-input always-float-label label="Password"  type="password"></paper-input>
+            </div>
+            <div class="card-actions">
+              <paper-button class="buttonLogin" raised><b>Login</b></paper-button>
+              <paper-button class="buttonLogin" on-tap="check" raised ><b>Register</b></paper-button>
+            </div>
+          </paper-card>
+        </section>
+        
+        <section id="sectionTwo">
+          <paper-card heading="Alto Voltaje Login" style="border-radius:5px;" elevation="0">
+            <div class="card-content">
+              <paper-input always-float-label label="Email"></paper-input>
+              <paper-input always-float-label  type="password" label="Password"></paper-input>
+              <paper-input always-float-label  type="password" label="Re-Password"></paper-input>
+              <paper-input always-float-label label="Phone"></paper-input>
+            </div>
+            <div class="card-actions">
+              <paper-button class="buttonLogin" raised><b>Login</b></paper-button>
+              <paper-button class="buttonLogin" on-tap="check">Register</paper-button>
+            </div>
+          </paper-card>
+        </section>
+
+      </iron-pages>
+    </paper-dialog>
+    
+    
+    
     
    
   </template>
@@ -92,27 +106,33 @@
                 {
                   name:'melo-animation',
                   node: this.$.dialog,
-                  timing:{delay:500, duration:1500}
+                  timing:{delay:500, duration:2000}
                 },
                 {
                   name:'fade-in-animation',
                   node: this.$.dialog,
-                  timing:{duration:2000}
-                }
-                ],
-              'exit':[
-                {
-                  name:'fade-out-animation',
-                  node: this
-                },
-                {
-                  name:'scale-down-animation',
-                  node: this
+                  timing:{duration:1500}
                 }],
               'exitSectionOne':[
                 {
                   name:'slide-left-animation',
-                  node: this.$.sectionOne
+                  node: this.$.sectionOne,
+                  timing: {duration: 250}
+                },
+                {
+                  name:'fade-out-animation',
+                  node: this.$.sectionOne,
+                  timing: {delay:100, duration: 150}
+                },
+                {
+                  name:'slide-from-right-animation',
+                  node: this.$.sectionTwo,
+                  timing: {delay:260, duration: 150}
+                },
+                {
+                  name:'fade-in-animation',
+                  node: this.$.sectionTwo,
+                  timing: {delay:260, duration: 100}
                 }]
             }
           }
@@ -122,7 +142,6 @@
         var dial= document.getElementById("dialog");
         this.playAnimation('entry');
         document.getElementById("LogOrReg").select(0);
-       
         dial.open();
       },
       
@@ -130,9 +149,7 @@
         if(document.getElementById("LogOrReg").selected==0){
           this.playAnimation('exitSectionOne');
           document.getElementById("LogOrReg").selectNext();
-        }
-          
-          
+        }  
       }
       
     })
