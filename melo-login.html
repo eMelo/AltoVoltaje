@@ -35,7 +35,6 @@
       background:yellow;
     }
     .dialogmelologin{
-      margin:auto auto auto auto;
       z-index: 12;
       position: fixed;
     }
@@ -126,9 +125,10 @@
                   name:'fade-out-animation',
                   node: this.$.sectionOne,
                   timing: {delay:100, duration: 150}
-                },
+                }],
+              'entrySectionTwo':[
                 {
-                  name:'slide-from-right-animation',
+                  name:'melo-scale-up-animation',
                   node: this.$.sectionTwo,
                   timing: {delay:260, duration: 150}
                 },
@@ -157,6 +157,7 @@
       },
       _onNeonAnimationFinish:function(e){
         if(count){
+          this.playAnimation('entrySectionTwo');
           document.getElementById("LogOrReg").selectNext();
           count = 0;
         }

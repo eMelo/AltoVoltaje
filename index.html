@@ -1,57 +1,41 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-  <head>
-    <!--Title-->
-    <title>
-      Alto Voltaje
-    </title>
-    <!--Includes-->
-      <script src="bower_components\webcomponentsjs\webcomponents.js"></script>
-      <link rel="import" href="bower_components\polymer\polymer.html">
+<head>
+  <title>Alto Voltaje</title>
+  <!--Responsive For Mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <link rel="import" href="melo-login.html">
-      <link href="style.css" rel="stylesheet" type="text/css">
-      
-      <link rel="import" href="bower_components\paper-header-panel\paper-header-panel.html">
-      <link rel="import" href="bower_components\paper-toolbar\paper-toolbar.html">
-      <link rel="import" href="bower_components\iron-icons\iron-icons.html">
-      <link rel="import" href="bower_components\paper-toolbar\paper-toolbar.html">
-      <link rel="import" href="bower_components\paper-icon-button\paper-icon-button.html">
-      <link rel="import" href="bower_components\iron-pages\iron-pages.html">
+  <!--The Polymer and WebCompoents Includes-->
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <link rel="import" href="bower_components/polymer/polymer.html">
 
-      <link rel="import" href="bower_components\neon-animation\neon-animated-pages.html">
-      <link rel="import" href="bower_components\iron-flex-layout\classes\iron-flex-layout.html">
+  <!--Paper Elements-->
+  <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+  <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
 
-      <link rel="import" href="altovoltaje-menu.html">
+  <!--Neon Elements-->
+  <link rel="import" href="bower_components/neon-animation/neon-animated-pages.html">
 
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta charset="UTF-8">
-  </head>
-  
-  <body class="fullbleed layout vertical" unresolved>
-    <paper-header-panel>
-      <!--Toolbar Section-->
-      <paper-toolbar class="mainToolbar">
-        <paper-icon-button icon="icons:menu"></paper-icon-button>
-        <span><b>Alto Voltaje App</b></span>
-        <melo-login></melo-login>
-      </paper-toolbar>
+  <!--Classes-->
+  <link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 
-      <!--Main Section-->
-      <altovoltaje-menu></altovoltaje-menu>
-      <!--
-      <template is="dom-bind" id="app">
-        <neon-animated-pages class="flex" selected="[[selected]]">
-          <altovoltaje-menu></altovoltaje-menu>
-        </neon-animated-pages>
-      </template>
-    
-      <script>
-        var app=document.querySelector('#app');
-        app.selected=0;
-      </script>
-      -->
-    </paper-header-panel>
-  </body>
-  
+  <!--Templates-->
+  <link rel="import" href="altovoltaje-selection-menu.html">
+
+  <!--Css-->
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body class="fullbleed layout vertical">
+  <paper-header-panel class="flex">
+    <paper-toolbar class="mainToolbar">
+      <b>ALTO VOLTAJE APP</b>
+    </paper-toolbar>
+
+    <div class="fit">
+      <altovoltaje-selection-menu>
+      </altovoltaje-selection-menu>
+    </div>
+  </paper-header-panel>
+</body>
 </html>
